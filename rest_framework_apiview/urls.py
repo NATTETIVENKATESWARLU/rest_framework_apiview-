@@ -17,20 +17,49 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 from app.views import *
+#------------------------------------------------------------------------------------------------------------------------------------------------
+
+from rest_framework.authtoken import views
+#------------------------------------------------------------------------------------------------------------------------------------------------
+
+#jwt token authentication
+
+
+
+
+
+
+#------------------------------------------------------------------------------------------------------------------------------------------------
 
 from rest_framework.routers import DefaultRouter
+#------------------------------------------------------------------------------------------------------------------------------------------------
 
 router=DefaultRouter()
 # router.register("apiviewset",cbv_viewset,basename="apiviewset")
-router.register("api",cbv_mixin_data1,basename="apiviewset1")
+router.register("api",cbv_mixin_model,basename="apiviewset1")
 
 urlpatterns = [
 
     path("admin/", admin.site.urls),
     # path("api/",Cbv_apiview.as_view()),
     path("",include(router.urls)),
+
     # path("api/",api_data,name="api"),
-    # path("apiclass/",cbv_apiview_data.as_view()),
+
+    path("apiclass/",Cbv_apiview.as_view()),
+
     # path("apiclass1/<int:pk>",cbv_apiview_data1.as_view()),
     # path("apiclass2/",cbv_mixin_data.as_view()),
+
+    
+
+
+
+
+
+
+
+
+    #tokens for apis
+    path("get-api-token/",views.obtain_auth_token,name="get-api-token/"),
 ]

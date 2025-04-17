@@ -14,18 +14,34 @@ from rest_framework.viewsets import ViewSet
 from rest_framework.decorators import api_view
 
 from rest_framework.generics import ListAPIView,CreateAPIView,RetrieveAPIView,UpdateAPIView,DestroyAPIView
+#------------------------------------------------------------------------------------------------------------------------------------
+# Create your views here api token 
+from rest_framework.permissions import IsAuthenticated,AllowAny,IsAdminUser,IsAuthenticatedOrReadOnly,DjangoModelPermissions,DjangoModelPermissionsOrAnonReadOnly
 
-# Create your views here
+from rest_framework.authentication import TokenAuthentication
+#------------------------------------------------------------------------------------------------------------------------------------
+from app.permissions import *
+from rest_framework.viewsets import ModelViewSet
+
+#------------------------------------------------------------------------------------------------------------------------------------
+# from rest_framework_jwt.views import j
 
 
-
-
-
-
+#------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 class Cbv_apiview(APIView):
+    permission_classes=[IsAuthenticated]
+    authentication_classes=[TokenAuthentication]
+
+#------------------------------------------------------------------------------------------------------------------------------------
+
+    # permission_classes=[DjangoModelPermissionsOrAnonReadOnly]
+
+    # authentication_classes=[TokenAuthentication]
+    # Should not be None
+#------------------------------------------------------------------------------------------------------------------------------------
 
     def get(self, request, format=None, *args, **kwargs):
         emp_id = request.GET.get("id")  # Fetch the employee ID from query parameters
@@ -94,7 +110,7 @@ class Cbv_apiview(APIView):
     
 
 
-
+#------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 class cbv_viewset(ViewSet):
@@ -145,6 +161,9 @@ class cbv_viewset(ViewSet):
         return Response({"mgs":"deleted successfuly"})
     
 
+
+#------------------------------------------------------------------------------------------------------------------------------------------------
+
 @api_view(["GET","POST","PUT","DELETE"])
 def api_data(request):
     id=request.GET.get("id")
@@ -190,6 +209,10 @@ def api_data(request):
     
 
 
+#------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
 
 
 from rest_framework.mixins import CreateModelMixin,ListModelMixin,UpdateModelMixin,DestroyModelMixin,RetrieveModelMixin
@@ -217,13 +240,18 @@ class cbv_mixin_data(CreateModelMixin,DestroyModelMixin,ListAPIView):
     def delete(self,request,*arg,**kwargs):
         return self.delete(request,*arg,**kwargs)
 
+#------------------------------------------------------------------------------------------------------------------------------------------------
 
-from rest_framework.viewsets import ModelViewSet
-class cbv_mixin_data1(ModelViewSet):
+
+
+class cbv_mixin_model(ModelViewSet):
+    permission_classes=[AllowAny]
+    authentication_classes=[TokenAuthentication]
+
     queryset=Employee.objects.all()
     serializer_class=employee_serializer
 
-
+#------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 

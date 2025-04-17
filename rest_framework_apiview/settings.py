@@ -39,8 +39,30 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "app",
-    "rest_framework"
+    "rest_framework",
+    "rest_framework.authtoken",
+    "rest_framework_jwt"
 ]
+#------------------------------------------------------------------------------------------------------------------------------------
+#rest api by using token 
+
+
+
+#tokens for apis
+# path("get-api-token/",views.obtain_auth_token,name="get-api-token/"),
+
+# from rest_framework.authtoken import views
+#------------------------------------------------------------------------------------------------------------------------------------
+#settings.py files
+
+# "rest_framework.authtoken"
+#------------------------------------------------------------------------------------------------------------------------------------
+
+# REST_FRAMEWORK={
+#     "DEFAULT_AUTHENTICATION_CLASSES":("rest_framework.authentication.TokenAuthentication",),
+#     "DEFAULT_PERMISSION_CLASSES":("rest_framework.permissions.IsAuthenticated",)
+# }
+#------------------------------------------------------------------------------------------------------------------------------------
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
